@@ -18,7 +18,6 @@ public class ImageCompare {
 
 	public static void main(String[] args) throws Exception {
 		
-		
 		// Desativando logger
 		GlobalScreen.registerNativeHook();
 		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
