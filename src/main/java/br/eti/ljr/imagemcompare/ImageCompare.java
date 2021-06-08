@@ -25,8 +25,34 @@ import br.eti.ljr.imagemcompare.util.Variaveis;
 
 public class ImageCompare {
 
-	private static final String PATH_XLSX = "C:\\Users\\DEV\\Desktop\\teste\\teste.xlsx";
+	private static final String PATH_XLSX = "C:\\Users\\DEV\\Desktop\\Envio\\ClientesAsaNorte.xlsx";
 	private static final String PATH_ARQUIVO = "C:\\Users\\DEV\\Desktop\\teste\\teste.xlsx";
+	private static final String TEXTO = "*CALCE PERFEITO – DIA DOS NAMORADOS*\r\n"
+			+ "\r\n"
+			+ "Pensando no presente perfeito \r\n"
+			+ "para o Dia dos Namorados❣️\r\n"
+			+ "\r\n"
+			+ "Aqui temos *desconto* \r\n"
+			+ "progressivos de até *50%*.\r\n"
+			+ "Isso mesmo *LEVA 4 PARES e PAGA 2*\r\n"
+			+ "\r\n"
+			+ "Confira os novos modelos de sandálias, sapatos, \r\n"
+			+ "chinelos e tênis - Usaflex, Opanken e Democrata.\r\n"
+			+ "Modelos ortopédicos e hiper confortáveis \r\n"
+			+ "\r\n"
+			+ "Conheça as *vantagens* de comprar na Calce👠👡🛍\r\n"
+			+ "✅ Frete grátis, nas compras acima de R$ 200;\r\n"
+			+ "✅ Loja especializada em calçados que aliviam dores;\r\n"
+			+ "✅ Maior diversidade de Sandálias Ortopédicas de Brasília;\r\n"
+			+ "✅ Faça suas compras pelo site, zap ou loja física; \r\n"
+			+ "\r\n"
+			+ "\r\n"
+			+ "302 Sul – Asa Sul – 61992473148\r\n"
+			+ "105 Norte – Asa Norte - 61992487937\r\n"
+			+ "\r\n"
+			+ "Ou acesse *nosso catálogo virtual:* https://wa.me/c/556192473148\r\n"
+			+ "\r\n"
+			+ "*Para maiores informações, consulte o regulamento de nossa campanha";
 
 	public static void main(String[] args) throws Exception {
 
@@ -62,7 +88,7 @@ public class ImageCompare {
 		while (rows.hasNext()) {
 			System.out.println("Linha " + cont++ + " de " + total);
 			XSSFRow row = (XSSFRow) rows.next();
-			XSSFCell cellNome = row.getCell(0);
+			XSSFCell cellNome = row.getCell(1);
 			XSSFCell cellOk = row.getCell(2);
 
 			if (cellNome != null) {
@@ -74,8 +100,9 @@ public class ImageCompare {
 					row.createCell(2).setCellValue("ok");
 					FileOutputStream fileOut = new FileOutputStream(PATH_XLSX);
 					workbook.write(fileOut);
-
-					enviar(cellNome.toString());
+					
+					String nome = getNumFormat(cellNome.toString());
+					enviar(nome);
 
 				}
 
@@ -88,6 +115,15 @@ public class ImageCompare {
 		System.exit(0);
 	}
 
+	private static String getNumFormat(String string) {
+		
+		string = string.replace(" ", "").replace("+55", "").replace("-", "");
+		
+		string = string.substring(3);
+		
+		return string;
+	}
+
 	private static void enviar(String nome) throws Exception {
 
 		Funcoes.move(100, 110);
@@ -96,38 +132,47 @@ public class ImageCompare {
 		Funcoes.copy(nome);
 		Funcoes.cola();
 
-		Thread.sleep(800);
+		Funcoes.delay(800);
 
 		Funcoes.keyEvent(KeyEvent.VK_ENTER);
 
 		BufferedImage actualImage = ImageActions.printTela(Variaveis.x, Variaveis.y, Variaveis.width, Variaveis.height);
 		ImageComparisonResult imgResult = ImageActions.comparaImg(Variaveis.imagem, actualImage);
 
-		if (imgResult.getDifferencePercent() > 1.0) {
-
-			Funcoes.move(480, 690);
-
+		if (imgResult.getDifferencePercent() > 2.0) {
+			
+			Funcoes.delay(500);
+			
+			Funcoes.copy(TEXTO);
+			
+			Funcoes.move(580, 690);
+			
 			Funcoes.click();
-
-			Funcoes.move(480, 495);
-			Funcoes.click();
-
-			Funcoes.copy(PATH_ARQUIVO);
+			
 			Funcoes.cola();
-
-			System.out.println("");
-			System.out.println("Enviando arquivo");
-
+			
 			Funcoes.keyEvent(KeyEvent.VK_ENTER);
-
-			Funcoes.move(1300, 600);
+		
+//			Funcoes.move(480, 495);
+//			Funcoes.click();
+//
+//			Funcoes.copy(PATH_ARQUIVO);
+//			Funcoes.cola();
+//
+//			System.out.println("");
+//			System.out.println("Enviando arquivo");
+//
+//			Funcoes.keyEvent(KeyEvent.VK_ENTER);
+//
+//			Funcoes.move(1300, 600);
+//
+//			Funcoes.delay(1000);
+//
+//			Funcoes.click3();
 
 			Funcoes.delay(1000);
-
-			Funcoes.click3();
-
-			Thread.sleep(1000);
 			Funcoes.click();
 		}
 	}
+	
 }
