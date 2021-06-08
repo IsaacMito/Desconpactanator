@@ -28,7 +28,6 @@ public class ImageCompare {
 	private static final String PATH_XLSX = "C:\\Users\\DEV\\Desktop\\teste\\teste.xlsx";
 	private static final String PATH_ARQUIVO = "C:\\Users\\DEV\\Desktop\\teste\\teste.xlsx";
 
-	@SuppressWarnings("null")
 	public static void main(String[] args) throws Exception {
 
 		System.out.println("Iniciando...");
@@ -65,23 +64,21 @@ public class ImageCompare {
 			XSSFRow row = (XSSFRow) rows.next();
 			XSSFCell cellNome = row.getCell(0);
 			XSSFCell cellOk = row.getCell(2);
-			
 
 			if (cellNome != null) {
-				
+
 				System.out.println("Tratando " + cellNome.toString());
-				
-				if(cellOk == null) {
-					
-					if ( !cellOk.toString().equals("ok") || !cellOk.toString().equals("*")) {
 
-						row.createCell(2).setCellValue(enviar(cellNome.toString()));
+				if (cellOk == null || !cellOk.toString().equals("ok")) {
 
-						FileOutputStream fileOut = new FileOutputStream(PATH_XLSX);
+					row.createCell(2).setCellValue("ok");
+					FileOutputStream fileOut = new FileOutputStream(PATH_XLSX);
+					workbook.write(fileOut);
 
-						workbook.write(fileOut);
-					}
+					enviar(cellNome.toString());
+
 				}
+
 			}
 		}
 
@@ -91,7 +88,7 @@ public class ImageCompare {
 		System.exit(0);
 	}
 
-	private static String enviar(String nome) throws Exception {
+	private static void enviar(String nome) throws Exception {
 
 		Funcoes.move(100, 110);
 		Funcoes.click3();
@@ -131,10 +128,6 @@ public class ImageCompare {
 
 			Thread.sleep(1000);
 			Funcoes.click();
-			return "ok";
-		} else {
-			System.out.println("IMAGENS PARECIDAS");
-			return "*";
 		}
 	}
 }
