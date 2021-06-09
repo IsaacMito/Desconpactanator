@@ -2,7 +2,7 @@ package br.eti.ljr.imagemcompare.util;
 
 import java.awt.image.BufferedImage;
 
-public class Variaveis {
+public class Vars {
 
 	public static Integer x;
 	public static Integer y;

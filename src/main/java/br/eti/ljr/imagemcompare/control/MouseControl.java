@@ -9,7 +9,7 @@ import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseListener;
 
 import br.eti.ljr.imagemcompare.util.ImageActions;
-import br.eti.ljr.imagemcompare.util.Variaveis;
+import br.eti.ljr.imagemcompare.util.Vars;
 
 public class MouseControl implements NativeMouseListener {
 
@@ -23,23 +23,23 @@ public class MouseControl implements NativeMouseListener {
 
 		if (e.getButton() == NativeMouseEvent.BUTTON1) {
 
-			if (Variaveis.x == null) {
+			if (Vars.x == null) {
 				
 				System.out.println("Capturando primeira posicao");
-				Variaveis.x = MouseInfo.getPointerInfo().getLocation().x;
-				Variaveis.y = MouseInfo.getPointerInfo().getLocation().y;
+				Vars.x = MouseInfo.getPointerInfo().getLocation().x;
+				Vars.y = MouseInfo.getPointerInfo().getLocation().y;
 				System.out.println("x: "+ MouseInfo.getPointerInfo().getLocation().x);
 				System.out.println("y: "+ MouseInfo.getPointerInfo().getLocation().y);
-			} else if (Variaveis.width == null) {
+			} else if (Vars.width == null) {
 				
 				System.out.println("Capturando segunda posicao");
-				Variaveis.width = MouseInfo.getPointerInfo().getLocation().x - Variaveis.x;
-				Variaveis.height = MouseInfo.getPointerInfo().getLocation().y - Variaveis.y;
+				Vars.width = MouseInfo.getPointerInfo().getLocation().x - Vars.x;
+				Vars.height = MouseInfo.getPointerInfo().getLocation().y - Vars.y;
 				System.out.println("x: "+ MouseInfo.getPointerInfo().getLocation().x);
 				System.out.println("y: "+ MouseInfo.getPointerInfo().getLocation().y);
 				try {
 					System.out.println("Capturar imagem da area selecionada");
-					Variaveis.imagem = ImageActions.printTela(Variaveis.x, Variaveis.y, Variaveis.width, Variaveis.height);
+					Vars.imagem = ImageActions.printTela(Vars.x, Vars.y, Vars.width, Vars.height);
 					
 					System.out.println("Gravando dados no disco");
 					ControlDados.gravar();

@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import br.eti.ljr.imagemcompare.util.ImageActions;
-import br.eti.ljr.imagemcompare.util.Variaveis;
+import br.eti.ljr.imagemcompare.util.Vars;
 
 public class ControlDados {
 
@@ -17,17 +17,17 @@ public class ControlDados {
 
 		Properties properties = new Properties();
 
-		properties.setProperty("x", Variaveis.x + "");
-		properties.setProperty("y", Variaveis.y + "");
+		properties.setProperty("x", Vars.x + "");
+		properties.setProperty("y", Vars.y + "");
 
-		properties.setProperty("width", Variaveis.width + "");
-		properties.setProperty("height", Variaveis.height + "");
+		properties.setProperty("width", Vars.width + "");
+		properties.setProperty("height", Vars.height + "");
 
 		FileOutputStream fos = new FileOutputStream(PROP_NAME);
 		properties.store(fos, "Configuracoes");
 		fos.close();
 		
-		ImageActions.saveImage(Variaveis.imagem, IMG_NAME);
+		ImageActions.saveImage(Vars.imagem, IMG_NAME);
 	}
 
 	public static void ler() throws IOException {
@@ -37,11 +37,11 @@ public class ControlDados {
 		FileInputStream fis = new FileInputStream(PROP_NAME);
 		properties.load(fis);
 
-		Variaveis.x = Integer.valueOf(properties.getProperty("x"));
-		Variaveis.y = Integer.valueOf(properties.getProperty("y"));
-		Variaveis.width = Integer.valueOf(properties.getProperty("width"));
-		Variaveis.height = Integer.valueOf(properties.getProperty("height"));
+		Vars.x = Integer.valueOf(properties.getProperty("x"));
+		Vars.y = Integer.valueOf(properties.getProperty("y"));
+		Vars.width = Integer.valueOf(properties.getProperty("width"));
+		Vars.height = Integer.valueOf(properties.getProperty("height"));
 		
-		Variaveis.imagem = ImageActions.lerImg(IMG_NAME);
+		Vars.imagem = ImageActions.lerImg(IMG_NAME);
 	}
 }

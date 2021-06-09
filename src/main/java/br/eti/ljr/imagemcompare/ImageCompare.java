@@ -19,9 +19,9 @@ import com.github.romankh3.image.comparison.model.ImageComparisonResult;
 
 import br.eti.ljr.imagemcompare.control.ControlDados;
 import br.eti.ljr.imagemcompare.control.TecladoControl;
-import br.eti.ljr.imagemcompare.util.Funcoes;
+import br.eti.ljr.imagemcompare.util.Macro;
 import br.eti.ljr.imagemcompare.util.ImageActions;
-import br.eti.ljr.imagemcompare.util.Variaveis;
+import br.eti.ljr.imagemcompare.util.Vars;
 
 public class ImageCompare {
 
@@ -117,7 +117,7 @@ public class ImageCompare {
 
 	private static String getNumFormat(String string) {
 		
-		string = string.replace(" ", "").replace("+55", "").replace("-", "");
+		string = string.replace(" ", "").replace("+55", "").replace("-", "").trim();
 		
 		string = string.substring(3);
 		
@@ -126,32 +126,34 @@ public class ImageCompare {
 
 	private static void enviar(String nome) throws Exception {
 
-		Funcoes.move(100, 110);
-		Funcoes.click3();
+		Macro.move(100, 110);
+		
+		Macro.click(3);
+		
+		Macro.copy(nome);
+		
+		Macro.cola();
+		
+		Macro.delay(800);
 
-		Funcoes.copy(nome);
-		Funcoes.cola();
+		Macro.keyEvent(KeyEvent.VK_ENTER);
 
-		Funcoes.delay(800);
-
-		Funcoes.keyEvent(KeyEvent.VK_ENTER);
-
-		BufferedImage actualImage = ImageActions.printTela(Variaveis.x, Variaveis.y, Variaveis.width, Variaveis.height);
-		ImageComparisonResult imgResult = ImageActions.comparaImg(Variaveis.imagem, actualImage);
+		BufferedImage actualImage = ImageActions.printTela(Vars.x, Vars.y, Vars.width, Vars.height);
+		ImageComparisonResult imgResult = ImageActions.comparaImg(Vars.imagem, actualImage);
 
 		if (imgResult.getDifferencePercent() > 2.0) {
 			
-			Funcoes.delay(500);
+			Macro.delay(500);
 			
-			Funcoes.copy(TEXTO);
+			Macro.copy(TEXTO);
 			
-			Funcoes.move(580, 690);
+			Macro.move(580, 690);
 			
-			Funcoes.click();
+			Macro.click();
 			
-			Funcoes.cola();
+			Macro.cola();
 			
-			Funcoes.keyEvent(KeyEvent.VK_ENTER);
+			Macro.keyEvent(KeyEvent.VK_ENTER);
 		
 //			Funcoes.move(480, 495);
 //			Funcoes.click();
@@ -170,8 +172,7 @@ public class ImageCompare {
 //
 //			Funcoes.click3();
 
-			Funcoes.delay(1000);
-			Funcoes.click();
+			Macro.delay(1000);
 		}
 	}
 	
